@@ -93,7 +93,7 @@ Obtendremos esta respuesta al tipear `mocha`:
 
 Con todo lo que hemos aprendido. Es hora que creemos una librería _dummy_ con funciones y la testeemos.
 
-La librería se llamará ingeniosa y creativamente `programa.js`. Deliberadamente habrán errores en todas las funciones, los que corregiremos con nuestros tests:
+La librería se llamará ingeniosa y creativamente `programa.js`. Deliberadamente habrán errores en algunas las funciones, los que corregiremos con nuestros tests:
 
 - `lib/programa.js`
 
@@ -102,6 +102,14 @@ exports.sumarleCuatro = function (a) {
   return a + 3;
 }
 
+exports.entregameUnObjeto = function () {
+  var obj = {
+    'id'        : 123
+  , 'apellido'  : 'Perez'
+  }
+
+  return obj
+}
 
 ````
 
@@ -186,7 +194,79 @@ Y obtenemos:
 
 ## Tercer Test
 
-(TODO)
+Comprobaremos si el valor `nombre` en el objeto que nos retorne la función `entregameUnObjeto()` es igual a `Luis`:
+
+- `test/test_1.js`
+
+````js
+var should = require('should')
+var programa = require('../lib/programa')
+
+// Declaramos el primer test
+suite('Primer Test', primeraSuite);
+
+function primeraSuite () {
+  test('Siempre va a funcionar, ya que no hace nada', primerTest)
+  test('Igualdad de valores', segundoTest)
+  test('Campo `nombre` existe', tercerTest)
+}
+
+function primerTest () {
+  // No hacemos NADA
+}
+
+function segundoTest () {
+  // Esperemos que 2 + 4 = 6
+  programa.sumarleCuatro(2).should.equal(6)
+}
+
+function tercerTest () {
+  // Esperemos que el campo nombre sea 'Luis'
+  programa.entregameUnObjeto().should.have.property('nombre')
+  programa.entregameUnObjeto().nombre.should.equal('Luis')
+}
+````
+Aplicamos el test (`$ mocha`):
+
+![Pantallazo](http://cl.ly/image/392D39310z3v/Screen%20Shot%202013-01-09%20at%203.36.49%20PM.png)
+
+Para solucionar, primero agreguemos la propiedad `nombre`:
+
+- `lib/programa.js`
+
+````js
+exports.entregameUnObjeto = function () {
+  var obj = {
+    'id'        : 123
+  , 'nombre'    : 'Pedro'
+  , 'apellido'  : 'Perez'
+  }
+
+  return obj
+}
+````
+
+Al correr el test ('Pedro' !== 'Luis'), obtendremos este error:
+
+![Pantallazo](http://cl.ly/image/0e0U3b080929/Screen%20Shot%202013-01-09%20at%203.38.45%20PM.png)
+
+Nótese: Primero chequeamos que el valor existiera, ahora chequeamos si tenía el valor correspondiente. Dado que `should` funciona con excepciones, bastó con que fallará la primera aserción para que el test se cayera. Corrijamos el valor definitivamente:
+
+````js
+exports.entregameUnObjeto = function () {
+  var obj = {
+    'id'        : 123
+  , 'nombre'    : 'Luis'
+  , 'apellido'  : 'Perez'
+  }
+
+  return obj
+}
+````
+
+Cuyo resultado correcto:
+
+![Pantallazo](http://cl.ly/image/0V3X2P3n2n43/Screen%20Shot%202013-01-09%20at%203.40.13%20PM.png)
 
 ## Cuarto Test
 

@@ -36,7 +36,7 @@ Dentro de test, editemos el archivo `test_1.js`
 
 ````js
 // Declaramos el primer test
-suite('Primer Test', primeraSuite);
+suite('Primer Test', primeraSuite)
 
 function primeraSuite () {
   test('Siempre va a funcionar, ya que no hace nada', primerTest)
@@ -57,7 +57,7 @@ suite('Primer Test', function () {
   test('Siempre va a funcionar, ya que no hace nada', function () {
     // No hacemos NADA
   })
-});
+})
 ````
 
 Lo cual puede ser más compacto y claro para algunos (o muchos). Este _approach_ en lo personal (opinión propia, BEWARE) se puede prestar en varios casos para confusiones (el infame _callback_hell) o malas mantenciones. Por lo que siempre lo trabajaré con funciones separadas y declaradas abajo. Pero insisto, es una elección personal del desarrollador.
@@ -99,7 +99,7 @@ La librería se llamará ingeniosa y creativamente `programa.js`. Deliberadament
 
 ````js
 exports.sumarleCuatro = function (a) {
-  return a + 3;
+  return a + 3
 }
 
 exports.entregameUnObjeto = function () {
@@ -160,7 +160,7 @@ var should = require('should')
 var programa = require('../lib/programa')
 
 // Declaramos el primer test
-suite('Primer Test', primeraSuite);
+suite('Primer Test', primeraSuite)
 
 function primeraSuite () {
   test('Siempre va a funcionar, ya que no hace nada', primerTest)
@@ -184,7 +184,7 @@ Obviamente arroja un error (queríamos eso), ya que sabemos que `2 + 3 = 5`, por
 
 ````js
 exports.sumarleCuatro = function (a) {
-  return a + 4;
+  return a + 4
 }
 ````
 
@@ -203,7 +203,7 @@ var should = require('should')
 var programa = require('../lib/programa')
 
 // Declaramos el primer test
-suite('Primer Test', primeraSuite);
+suite('Primer Test', primeraSuite)
 
 function primeraSuite () {
   test('Siempre va a funcionar, ya que no hace nada', primerTest)

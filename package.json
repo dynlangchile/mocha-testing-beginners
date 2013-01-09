@@ -2,6 +2,7 @@
   , "version"         : "1.0.0"
   , "private"         : true
   , "dependencies"    : {
-      "should"        : "1.2.1"
+      "request"       : "2.12.0"
+    , "should"        : "1.2.1"
     }
 }

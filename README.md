@@ -32,7 +32,7 @@ $ mkdir test
 
 Dentro de test, editemos el archivo `test_1.js`
 
-* `test/test_1.js`
+- `test/test_1.js`
 
 ````js
 // Declaramos el primer test
@@ -76,7 +76,7 @@ La respuesta es:
 
 Por supuesto, nos cansaremos de tipear una y otra vez el parámetro. Para ellos en `test` creamos un archivo llamado `mocha.opts` e ingresaremos:
 
-* `test/mocha.opts`
+- `test/mocha.opts`
 
 ````
 --ui tdd
@@ -98,19 +98,35 @@ La librería se llamará ingeniosa y creativamente `programa.js`. Deliberadament
 - `lib/programa.js`
 
 ````js
+var request = require('request')
+
 exports.sumarleCuatro = function (a) {
-  return a + 3
+  return a + 4
 }
 
 exports.entregameUnObjeto = function () {
   var obj = {
     'id'        : 123
+  , 'nombre'    : 'Luis'
   , 'apellido'  : 'Perez'
   }
 
   return obj
 }
 
+exports.abreUnaURL = function (url, callback) {
+  var options = {
+    'url' : url
+  }
+
+  request(options, onResponse)
+
+  function onResponse (error, response, body) {
+    if (error) return callback(error)
+
+    return callback(null, response)
+  }
+}
 ````
 
 ## Librerías adicionales
@@ -121,7 +137,11 @@ Para hacer nuestros tests necesitaremos librerías adicionales:
 
 Un `assert` reforzado, dispara una excepción si no se cumple lo específicado en la definición, y es esta excepción la que nos permite determinar si hubo o no error en nuestro test.
 
-Agregaremos la libreríaen `package.json`, luego haremos un `npm install`, para posteriormente requerir `should`en nuestro archivo de tests:
+* [request](https://github.com/mikeal/request)
+
+Nos permite hacer consultas HTTP dentro de nuestro código de manera compacta.
+
+Agregaremos las librerías en `package.json`, luego haremos un `npm install`, para posteriormente requerir `should` en nuestro archivo de tests, y `request` en nuestro `programa.js`:
 
 - `package.json`
 
@@ -130,7 +150,8 @@ Agregaremos la libreríaen `package.json`, luego haremos un `npm install`, para 
   , "version"         : "1.0.0"
   , "private"         : true
   , "dependencies"    : {
-      "should"        : "1.2.1"
+      "request"       : "2.12.0"
+    , "should"        : "1.2.1"
     }
 }
 ````
@@ -270,14 +291,100 @@ Cuyo resultado correcto:
 
 ## Cuarto Test
 
-(TODO)
+Consultaremos una página web ([google](http://www.google.cl/))
 
-## Quinto Test
+Este será asincrónico, es decir debemos esperar que una operación se complete para que se dé por terminado. Para ello usamos la palabra clave `done()`, la que se entrega a la función del test, y se ejecuta cuando estimemos terminado el test (para poder seguir con más eventualmente).
 
-(TODO)
+- `test/test_1.js`
+
+````js
+
+var should = require('should')
+var programa = require('../lib/programa')
+
+// Declaramos el primer test
+suite('Primer Test', primeraSuite)
+
+function primeraSuite () {
+  test('Siempre va a funcionar, ya que no hace nada', primerTest)
+  test('Igualdad de valores', segundoTest)
+  test('Campo `nombre` existe', tercerTest)
+  test('Abre una url', cuartoTest)
+}
+
+function primerTest () {
+  // No hacemos NADA
+}
+
+function segundoTest () {
+  // Esperemos que 2 + 4 = 6
+  programa.sumarleCuatro(2).should.equal(6)
+}
+
+function tercerTest () {
+  // Esperemos que el campo nombre sea 'Luis'
+  programa.entregameUnObjeto().should.have.property('nombre')
+  programa.entregameUnObjeto().nombre.should.equal('Luis')
+}
+
+function cuartoTest (done) {
+  // Veamos si existe 'www.google.com'
+  programa.abreUnaURL('www.google.com', onResponse)
+
+  function onResponse (err, res) {
+    // No deberíamos tener errores
+    should.not.exist(err)
+
+    // Si llegamos acá, entonces tenemos un response.
+    // Comprobemos si tenemos el campo body
+    res.should.have.property('body')
+    // Y comprobemos que el título sea google
+    res.body.should.match(/<title>Google<\/title>/)
+
+    // Terminamos la ejecución del test asincrónico
+    done()
+  }
+}
+````
+
+Al ejecutar `mocha`, tendremos:
+
+![Pantallazo](http://cl.ly/image/143B051l1y3Q/Screen%20Shot%202013-01-09%20at%204.49.45%20PM.png)
+
+Observemos el error:
+
+````
+ AssertionError: expected [Error: Invalid URI "www.google.com"] to not exist
+````
+
+Este es uno bien común, producto de la costumbre que tenemos con el _browser_. Modifiquemos la función de manera rudimentaria, agregando `http://` al principio de la `url`:
+
+- `lib/programa.js`
+
+````js
+exports.abreUnaURL = function (url, callback) {
+  var options = {
+    'url' : 'http://' + url
+  }
+
+  request(options, onResponse)
+
+  function onResponse (error, response, body) {
+    if (error) return callback(error)
+
+    return callback(null, response)
+  }
+}
+````
+
+Y ejecutemos:
+
+![Pantallazo](http://cl.ly/image/3Q1q2v3D1i1r/Screen%20Shot%202013-01-09%20at%204.52.00%20PM.png)
+
+Los demás tests son para saber si `req` contiene la propiedad `body`, y si la propiedad `body` tiene el título `Google`. 
 
 # Conclusión
 
-Existen más variantes, se puede configurar un archivo de opciones, se puede cambiar el reporter, se puede utilizar el browser, se pueden omitir tests según condiciones, distinguir entre funciones sincrónicas o asincrónicas, se pueden escribir scripts o instrucciones para ejecutar antes o después. Pero por ahora este pequeño tutorial permite introducir al lector en el tema.
+Existen más variantes, se puede configurar un archivo de opciones, se puede cambiar el reporter, se puede utilizar el browser, se pueden omitir tests según condiciones, se pueden escribir scripts o instrucciones para ejecutar antes o después. Pero por ahora este pequeño tutorial permite introducir al lector en el tema.
 
 Muchas Gracias!

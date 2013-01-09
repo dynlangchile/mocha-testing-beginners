@@ -15,5 +15,6 @@ function primerTest () {
 }
 
 function segundoTest () {
-
+  // Esperemos que 2 + 4 = 6
+  should.equal(6, programa.sumarleCuatro(2))
 }

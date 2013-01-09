@@ -93,11 +93,15 @@ Obtendremos esta respuesta al tipear `mocha`:
 
 Con todo lo que hemos aprendido. Es hora que creemos una librería _dummy_ con funciones y la testeemos.
 
-La librería se llamará ingeniosa y creativamente `programa.js`
+La librería se llamará ingeniosa y creativamente `programa.js`. Deliberadamente habrán errores en todas las funciones, los que corregiremos con nuestros tests:
 
 - `lib/programa.js`
 
 ````js
+exports.sumarleCuatro = function (a) {
+  return a + 3;
+}
+
 
 ````
 
@@ -144,20 +148,41 @@ Invocaremos a la función `segundoTest()` de `lib/programa.js`, con el valor `3`
 - `test/test_1.js`
 
 ````js
+var should = require('should')
+var programa = require('../lib/programa')
 
+// Declaramos el primer test
+suite('Primer Test', primeraSuite);
+
+function primeraSuite () {
+  test('Siempre va a funcionar, ya que no hace nada', primerTest)
+  test('Igualdad de valores', segundoTest)
+}
+
+function primerTest () {
+  // No hacemos NADA
+}
+
+function segundoTest () {
+  // Esperemos que 2 + 4 = 6
+  should.equal(6, programa.sumarleCuatro(2))
+}
 
 ````
 
-![Pantallazo]()
+![Pantallazo](http://cl.ly/image/3O0A460B0B1K/Screen%20Shot%202013-01-09%20at%203.23.39%20PM.png)
 
-Obviamente arroja un error (queríamos eso), ya que sabemos que `2 + 3 = 5`, por lo que sustituímos y obtenemos:
+Obviamente arroja un error (queríamos eso), ya que sabemos que `2 + 3 = 5`, por lo que sustituímos en nuestro `programa.js `:
 
 ````js
-
-
+exports.sumarleCuatro = function (a) {
+  return a + 4;
+}
 ````
 
-![Pantallazo]()
+Y obtenemos:
+
+![Pantallazo](http://cl.ly/image/2Y3n220b443s/Screen%20Shot%202013-01-09%20at%203.24.19%20PM.png)
 
 ## Tercer Test
 

@@ -32,6 +32,8 @@ $ mkdir test
 
 Dentro de test, editemos el archivo `test_1.js`
 
+* `test/test_1.js`
+
 ````js
 // Declaramos el primer test
 suite('Primer Test', primeraSuite);
@@ -74,7 +76,7 @@ La respuesta es:
 
 Por supuesto, nos cansaremos de tipear una y otra vez el parámetro. Para ellos en `test` creamos un archivo llamado `mocha.opts` e ingresaremos:
 
-* `mocha.opts`
+* `test/mocha.opts`
 
 ````
 --ui tdd
@@ -89,13 +91,65 @@ Obtendremos esta respuesta al tipear `mocha`:
 
 # Ejemplos rápidos de Tests
 
+Con todo lo que hemos aprendido. Es hora que creemos una librería _dummy_ con funciones y la testeemos.
+
+La librería se llamará ingeniosa y creativamente `programa.js`
+
+````js
+
+````
+
+## Librerías adicionales
+
+Para hacer nuestros tests necesitaremos librerías adicionales:
+
+* [should.js](https://github.com/visionmedia/should.js/)
+
+Un `assert` reforzado, dispara una excepción si no se cumple lo específicado en la definición, y es esta excepción la que nos permite determinar si hubo o no error en nuestro test.
+
+Agregaremos la libreríaen `package.json`, luego haremos un `npm install`, para posteriormente requerir `should`en nuestro archivo de tests:
+
+- `package.json`
+
+````json
+{   "name"            : "mocha-tutorial-basico"
+  , "version"         : "1.0"
+  , "private"         : true
+  }
+  , "dependencies"    : {
+      "should"        : "1.2.1"
+    }
+}
+````
+
+- línea de comandos
+
+````bash
+$ npm install
+````
+
+- `test/test_1.js`
+
+````js
+var should = require('should')
+````
+
+
+El primer test ya lo hicimos (bueno, no hace nada, pero lo realizamos), por lo que empezaremos del segundo:
+
+## Segundo Test (Igualdad de Valores)
+
 (TODO)
 
-## xrweqw
+## Tercer Test
 
 (TODO)
 
-## sasdasd
+## Cuarto Test
+
+(TODO)
+
+## Quinto Test
 
 (TODO)
 

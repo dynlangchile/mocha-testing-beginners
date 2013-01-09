@@ -70,7 +70,7 @@ $ mocha -u tdd
 
 La respuesta es:
 
-[Pantallazo](http://cl.ly/image/2t3X3g1I2Z0h/Screen%20Shot%202013-01-09%20at%202.38.56%20PM.png)
+![Pantallazo](http://cl.ly/image/2t3X3g1I2Z0h/Screen%20Shot%202013-01-09%20at%202.38.56%20PM.png)
 
 Por supuesto, nos cansaremos de tipear una y otra vez el parámetro. Para ellos en `test` creamos un archivo llamado `mocha.opts` e ingresaremos:
 
@@ -85,7 +85,7 @@ El parámetro `u` cambia a `ui` en el archivo y agregamos el _reporter_ `spec` q
 
 Obtendremos esta respuesta al tipear `mocha`:
 
-[Pantallazo](http://cl.ly/image/0r0T2O0D0K2H/Screen%20Shot%202013-01-09%20at%202.43.28%20PM.png)
+![Pantallazo](http://cl.ly/image/0r0T2O0D0K2H/Screen%20Shot%202013-01-09%20at%202.43.28%20PM.png)
 
 # Ejemplos rápidos de Tests
 

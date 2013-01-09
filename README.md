@@ -95,6 +95,8 @@ Con todo lo que hemos aprendido. Es hora que creemos una librería _dummy_ con f
 
 La librería se llamará ingeniosa y creativamente `programa.js`
 
+- `lib/programa.js`
+
 ````js
 
 ````
@@ -113,9 +115,8 @@ Agregaremos la libreríaen `package.json`, luego haremos un `npm install`, para 
 
 ````json
 {   "name"            : "mocha-tutorial-basico"
-  , "version"         : "1.0"
+  , "version"         : "1.0.0"
   , "private"         : true
-  }
   , "dependencies"    : {
       "should"        : "1.2.1"
     }
@@ -134,12 +135,29 @@ $ npm install
 var should = require('should')
 ````
 
-
 El primer test ya lo hicimos (bueno, no hace nada, pero lo realizamos), por lo que empezaremos del segundo:
 
 ## Segundo Test (Igualdad de Valores)
 
-(TODO)
+Invocaremos a la función `segundoTest()` de `lib/programa.js`, con el valor `3` y comprobaremos que nos retorne `4`:
+
+- `test/test_1.js`
+
+````js
+
+
+````
+
+![Pantallazo]()
+
+Obviamente arroja un error (queríamos eso), ya que sabemos que `2 + 3 = 5`, por lo que sustituímos y obtenemos:
+
+````js
+
+
+````
+
+![Pantallazo]()
 
 ## Tercer Test
 

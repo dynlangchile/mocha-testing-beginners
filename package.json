@@ -1,7 +1,6 @@
 {   "name"            : "mocha-tutorial-basico"
-  , "version"         : "1.0"
+  , "version"         : "1.0.0"
   , "private"         : true
-  }
   , "dependencies"    : {
       "should"        : "1.2.1"
     }

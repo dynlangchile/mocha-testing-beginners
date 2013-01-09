@@ -1,4 +1,7 @@
 
+var should = require('should')
+var programa = require('../lib/programa')
+
 // Declaramos el primer test
 suite('Primer Test', primeraSuite);
 
@@ -12,5 +15,5 @@ function primerTest () {
 }
 
 function segundoTest () {
-  
+
 }

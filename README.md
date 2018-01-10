@@ -1,7 +1,7 @@
 mocha-testing-beginners
 =======================
 
-Vamos a mostrar las cosas básicas que podemos hacer con la herramienta de testing [mocha](https://github.com/visionmedia/mocha) ([documentación acá](http://visionmedia.github.com/mocha/)).
+Vamos a mostrar las cosas básicas que podemos hacer con la herramienta de testing [mocha](https://github.com/mochajs/mocha) ([documentación acá](http://mochajs.org/)).
 
 # Pre-requisitos
 
